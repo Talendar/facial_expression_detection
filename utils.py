@@ -43,6 +43,11 @@ def load_qider(path, imgsize):
     return np.asarray(data).reshape(len(data), imgsize[0], imgsize[1], 1), np.asarray(labels)
 
 
+def class_from_id(id):
+    """ Returns the name of the class with the given id. """
+    return list(EXPRESSIONS.keys())[list(EXPRESSIONS.values()).index(id)]
+
+
 def randimg(data, labels, exp_name=None):
     """ Returns a tuple containing a randomly selected image and its label. """
     if exp_name is None:
@@ -50,5 +55,4 @@ def randimg(data, labels, exp_name=None):
     else:
         i = np.random.choice( [i for i in range(len(labels)) if labels[i] == EXPRESSIONS[exp_name]] )
 
-    return data[i], list(EXPRESSIONS.keys())[list(EXPRESSIONS.values()).index(labels[i])]
-
+    return data[i], class_from_id(labels[i])
